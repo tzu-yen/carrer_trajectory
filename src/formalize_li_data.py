@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-import unicodecsv
+import pandas as pd
 import sys
 import os
 import re
@@ -133,6 +133,10 @@ def formalize_experience(row):
         formalized_experiences.append(exp)
     return formalized_experiences
 
+def formalize_education_2():
+
+
+
 
 def main(cursor, cursor2, lower, upper):
     cursor2.execute("SELECT id, educations, experiences FROM search.person_linkedin_profile WHERE id >= %s AND id <= %s AND NOT educations IS NULL AND NOT experiences IS NULL order by id;", (lower, upper))
@@ -168,6 +172,10 @@ def main(cursor, cursor2, lower, upper):
         finally:
             counter += 1
     print "%d profiles created." % counter 
+
+def main_edu_extract(cursor, lower, upper):
+    cursor.execute("SELECT id, school, field, degree FROM profile.education WHERE id >= %s AND id <= %s AND degree IS NULL AND NOT experiences IS NULL order by id;", (lower, upper))
+
 
 if __name__ == "__main__":
     try:
